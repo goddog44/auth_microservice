@@ -1,0 +1,116 @@
+{% extends 'authentication/base.html' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-header">
+        <h1>Connexion</h1>
+        <p>Entrez vos identifiants pour vous connecter</p>
+    </div>
+
+    <div id="login-form">
+        <div class="mb-3">
+            <label for="email" class="form-label">Adresse email</label>
+            <input type="email" class="form-control" id="email" placeholder="votre@email.com" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Mot de passe</label>
+            <input type="password" class="form-control" id="password" required>
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="rememberMe">
+            <label class="form-check-label" for="rememberMe">Se souvenir de moi</label>
+        </div>
+        <div class="mb-3">
+            <button id="login-btn" class="btn btn-primary w-100">Se connecter</button>
+        </div>
+        <div class="alert alert-danger" id="login-error" style="display: none;"></div>
+    </div>
+
+    <div id="mfa-form" style="display: none;">
+        <div class="mb-3">
+            <label for="mfa-token" class="form-label">Code MFA</label>
+            <input type="text" class="form-control" id="mfa-token" placeholder="123456" required>
+            <div class="form-text">Entrez le code à 6 chiffres de votre application d'authentification</div>
+        </div>
+        <div class="mb-3">
+            <button id="mfa-submit-btn" class="btn btn-primary w-100">Vérifier</button>
+        </div>
+        <div class="alert alert-danger" id="mfa-error" style="display: none;"></div>
+    </div>
+
+    <div class="auth-footer">
+        <p>Vous n'avez pas de compte ? <a href="{% url 'authentication:register_page' %}">S'inscrire</a></p>
+        <p><a href="{% url 'authentication:password_reset_page' %}">Mot de passe oublié ?</a></p>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $(document).ready(function() {
+        let email = '';
+        let password = '';
+
+        $('#login-btn').click(function() {
+            email = $('#email').val();
+            password = $('#password').val();
+
+            if (!email || !password) {
+                $('#login-error').text('Veuillez remplir tous les champs').show();
+                return;
+            }
+
+            handleAPIRequest(
+                '/api/login/',
+                'POST',
+                { email: email, password: password },
+                function(response) {
+                    localStorage.setItem('access_token', response.access);
+                    localStorage.setItem('refresh_token', response.refresh);
+                    window.location.href = "{% url 'authentication:profile_page' %}";
+                },
+                function(xhr) {
+                    if (xhr.status === 400) {
+                        const data = JSON.parse(xhr.responseText);
+                        if (data.mfa_required) {
+                            $('#login-form').hide();
+                            $('#mfa-form').show();
+                        } else {
+                            $('#login-error').text(Object.values(data)[0]).show();
+                        }
+                    } else {
+                        $('#login-error').text('Erreur lors de la connexion. Veuillez réessayer.').show();
+                    }
+                }
+            );
+        });
+
+        $('#mfa-submit-btn').click(function() {
+            const mfaToken = $('#mfa-token').val();
+
+            if (!mfaToken) {
+                $('#mfa-error').text('Veuillez entrer le code MFA').show();
+                return;
+            }
+
+            handleAPIRequest(
+                '/api/login/',
+                'POST',
+                { email: email, password: password, mfa_token: mfaToken },
+                function(response) {
+                    localStorage.setItem('access_token', response.access);
+                    localStorage.setItem('refresh_token', response.refresh);
+                    window.location.href = "{% url 'authentication:profile_page' %}";
+                },
+                function(xhr) {
+                    const data = JSON.parse(xhr.responseText);
+                    $('#mfa-error').text(Object.values(data)[0]).show();
+                }
+            );
+        });
+    });
+</script>
+{% endblock %}

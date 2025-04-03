@@ -1,0 +1,77 @@
+{% extends "authentication/base.html" %}
+
+{% block title %}Configuration MFA{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <h2 class="card-title">Configuration de l'authentification à deux facteurs</h2>
+        
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                    <i class="icon-{% if message.tags == 'success' %}check{% else %}warning{% endif %}"></i>
+                    <p>{{ message }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        {% if not user.mfa_enabled %}
+            <div class="mfa-setup-container">
+                <p class="card-description">
+                    L'authentification à deux facteurs ajoute une couche de sécurité supplémentaire à votre compte.
+                </p>
+                
+                <div class="qr-container">
+                    <img src="{{ qr_code }}" alt="QR Code MFA" id="qr-code">
+                </div>
+                
+                <div class="mfa-instructions">
+                    <h3>Instructions :</h3>
+                    <ol>
+                        <li>Téléchargez une application d'authentification comme Google Authenticator ou Authy sur votre smartphone.</li>
+                        <li>Scannez le code QR ci-dessus avec l'application.</li>
+                        <li>Entrez le code à 6 chiffres généré par l'application ci-dessous pour vérifier la configuration.</li>
+                    </ol>
+                </div>
+                
+                <div class="secret-key">
+                    <p>Si vous ne pouvez pas scanner le code QR, utilisez cette clé secrète :</p>
+                    <div class="secret-value">{{ secret_key }}</div>
+                </div>
+                
+                <form method="post" action="{% url 'mfa_setup' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="secret" value="{{ secret_key }}">
+                    
+                    <div class="form-group">
+                        <label for="token">Code de vérification</label>
+                        <input type="text" id="token" name="token" required placeholder="Code à 6 chiffres" autocomplete="off" maxlength="6" class="otp-input">
+                        {% if form.token.errors %}
+                            <div class="error-text">{{ form.token.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="button-container">
+                        <button type="submit" class="btn btn-primary">Activer MFA</button>
+                        <a href="{% url 'profile' %}" class="btn btn-outline">Annuler</a>
+                    </div>
+                </form>
+            </div>
+        {% else %}
+            <div class="message success">
+                <i class="icon-check"></i>
+                <p>L'authentification à deux facteurs est déjà activée pour votre compte.</p>
+            </div>
+            
+            <form method="post" action="{% url 'mfa_disable' %}">
+                {% csrf_token %}
+                <div class="button-container">
+                    <button type="submit" class="btn btn-danger">Désactiver MFA</button>
+                    <a href="{% url 'profile' %}" class="btn btn-outline">Retour au profil</a>
+                </div>
+            </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

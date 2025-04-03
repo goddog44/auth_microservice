@@ -1,0 +1,107 @@
+{% extends 'authentication/base.html' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-header">
+        <h1>Créer un compte</h1>
+        <p>Créez un compte pour accéder à tous nos services</p>
+    </div>
+
+    <form id="register-form">
+        <div class="mb-3">
+            <label for="email" class="form-label">Adresse email</label>
+            <input type="email" class="form-control" id="email" placeholder="votre@email.com" required>
+        </div>
+        <div class="mb-3">
+            <label for="first_name" class="form-label">Prénom</label>
+            <input type="text" class="form-control" id="first_name" placeholder="Prénom">
+        </div>
+        <div class="mb-3">
+            <label for="last_name" class="form-label">Nom</label>
+            <input type="text" class="form-control" id="last_name" placeholder="Nom">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Mot de passe</label>
+            <input type="password" class="form-control" id="password" required>
+            <div class="form-text">Minimum 8 caractères, dont une majuscule, un chiffre et un caractère spécial</div>
+        </div>
+        <div class="mb-3">
+            <label for="password_confirm" class="form-label">Confirmer le mot de passe</label>
+            <input type="password" class="form-control" id="password_confirm" required>
+        </div>
+        <div class="mb-3">
+            <button type="button" id="register-btn" class="btn btn-primary w-100">S'inscrire</button>
+        </div>
+        <div class="alert alert-danger" id="register-error" style="display: none;"></div>
+        <div class="alert alert-success" id="register-success" style="display: none;">
+            <strong>Inscription réussie!</strong> Veuillez vérifier votre email pour activer votre compte.
+        </div>
+    </form>
+
+    <div class="auth-footer">
+        <p>Vous avez déjà un compte ? <a href="{% url 'authentication:login_page' %}">Se connecter</a></p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $(document).ready(function() {
+        $('#register-btn').click(function() {
+            const email = $('#email').val();
+            const firstName = $('#first_name').val();
+            const lastName = $('#last_name').val();
+            const password = $('#password').val();
+            const passwordConfirm = $('#password_confirm').val();
+
+            if (!email || !password || !passwordConfirm) {
+                $('#register-error').text('Veuillez remplir tous les champs obligatoires').show();
+                return;
+            }
+
+            if (password !== passwordConfirm) {
+                $('#register-error').text('Les mots de passe ne correspondent pas').show();
+                return;
+            }
+
+            handleAPIRequest(
+                '/api/register/',
+                'POST',
+                {
+                    email: email,
+                    first_name: firstName,
+                    last_name: lastName,
+                    password: password,
+                    password_confirm: passwordConfirm
+                },
+                function(response) {
+                    $('#register-form input').val('');
+                    $('#register-error').hide();
+                    $('#register-success').show();
+                    
+                    // Rediriger vers la page de verification après 3 secondes
+                    setTimeout(function() {
+                        window.location.href = "{% url 'authentication:verifymail' uidb64='uidb64' token='token' %}";
+                    }, 3000);
+                },
+                function(xhr) {
+                    if (xhr.status === 400) {
+                        const data = JSON.parse(xhr.responseText);
+                        let errorMsg = '';
+                        
+                        for (const field in data) {
+                            errorMsg += `${field}: ${data[field].join(', ')}<br>`;
+                        }
+                        
+                        $('#register-error').html(errorMsg).show();
+                    } else {
+                        $('#register-error').text('Erreur lors de l\'inscription. Veuillez réessayer.').show();
+                    }
+                }
+            );
+        });
+    });
+</script>
+{% endblock %}

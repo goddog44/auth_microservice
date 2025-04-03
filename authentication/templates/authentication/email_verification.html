@@ -1,0 +1,37 @@
+{% extends "authentication/base.html" %}
+
+{% block title %}Vérification d'Email{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <h2 class="card-title">Vérification d'Email</h2>
+        
+        {% if success %}
+            <div class="message success">
+                <i class="icon-check"></i>
+                <p>Votre adresse email a été vérifiée avec succès !</p>
+            </div>
+            <p>Votre compte est maintenant actif et vous pouvez vous connecter.</p>
+            <div class="button-container">
+                <a href="{% url 'login' %}" class="btn btn-primary">Se connecter</a>
+            </div>
+        {% else %}
+            <div class="message error">
+                <i class="icon-warning"></i>
+                <p>Échec de la vérification d'email</p>
+            </div>
+            <p>Le lien de vérification est invalide ou a expiré.</p>
+            <p>Vous pouvez demander un nouveau lien de vérification.</p>
+            <div class="button-container">
+                <form method="post" action="{% url 'authentication:verify_email' uidb64=uidb64 token=token %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="email" value="{{ email }}">
+                    <button type="submit" class="btn btn-secondary">Renvoyer le lien</button>
+                </form>
+                <a href="{% url 'authentication:login' %}" class="btn btn-outline">Retour à la connexion</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

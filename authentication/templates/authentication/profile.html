@@ -1,0 +1,97 @@
+{% extends 'authentication/base.html' %}
+
+{% block title %}Mon Profil{% endblock %}
+
+{% block content %}
+<div class="container profile-container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Mon Profil</h3>
+                </div>
+                <div class="card-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <ul class="nav nav-tabs" id="profileTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true">Informations Personnelles</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="password-tab" data-bs-toggle="tab" data-bs-target="#password" type="button" role="tab" aria-controls="password" aria-selected="false">Mot de passe</button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="profileTabsContent">
+                        <!-- Informations personnelles -->
+                        <div class="tab-pane fade show active p-3" id="info" role="tabpanel" aria-labelledby="info-tab">
+                            <form method="post" action="{% url 'authentication:profile' %}" class="user-profile-form">
+                                {% csrf_token %}
+                                <input type="hidden" name="form_type" value="profile_info">
+                                
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Adresse e-mail</label>
+                                    <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="first_name" class="form-label">Prénom</label>
+                                    <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}">
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="last_name" class="form-label">Nom</label>
+                                    <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}">
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary">Mettre à jour le profil</button>
+                            </form>
+                        </div>
+                        
+                        <!-- Changement de mot de passe -->
+                        <div class="tab-pane fade p-3" id="password" role="tabpanel" aria-labelledby="password-tab">
+                            <form method="post" action="{% url 'authentication:profile' %}" class="password-change-form">
+                                {% csrf_token %}
+                                <input type="hidden" name="form_type" value="password_change">
+                                
+                                <div class="mb-3">
+                                    <label for="current_password" class="form-label">Mot de passe actuel</label>
+                                    <input type="password" class="form-control" id="current_password" name="current_password" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="new_password" class="form-label">Nouveau mot de passe</label>
+                                    <input type="password" class="form-control" id="new_password" name="new_password" required>
+                                    <div class="form-text">Le mot de passe doit contenir au moins 8 caractères.</div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="new_password_confirm" class="form-label">Confirmer le nouveau mot de passe</label>
+                                    <input type="password" class="form-control" id="new_password_confirm" name="new_password_confirm" required>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary">Changer le mot de passe</button>
+                            </form>
+                            
+                            <hr class="my-4">
+                            
+                            <div class="password-reset-section">
+                                <h5>Mot de passe oublié?</h5>
+                                <p>Si vous avez oublié votre mot de passe, vous pouvez demander une réinitialisation.</p>
+                                <a href="{% url 'authentication:password_reset_request' %}" class="btn btn-outline-secondary">Réinitialiser le mot de passe</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

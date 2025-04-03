@@ -1,0 +1,139 @@
+DEBUG 2025-04-03 12:09:42,620 services Activité enregistrée: register - Utilisateur: jordanessono44@gmail.com
+DEBUG 2025-04-03 12:16:32,981 services Activité enregistrée: register - Utilisateur: chris@gmail.com
+DEBUG 2025-04-03 12:18:41,912 services Activité enregistrée: register - Utilisateur: christ@gmail.com
+DEBUG 2025-04-03 12:20:44,431 services Activité enregistrée: register - Utilisateur: admin@gmail.com
+DEBUG 2025-04-03 12:23:30,246 services Activité enregistrée: register - Utilisateur: test@gmail.com
+DEBUG 2025-04-03 12:35:30,501 services Activité enregistrée: register - Utilisateur: test5@gmail.com
+DEBUG 2025-04-03 12:39:37,475 services Activité enregistrée: register - Utilisateur: jordanessono5@gmail.com
+DEBUG 2025-04-03 12:40:30,275 services Activité enregistrée: register - Utilisateur: admin1@gmail.com
+DEBUG 2025-04-03 12:45:18,288 services Activité enregistrée: register - Utilisateur: admin2@gmail.com
+DEBUG 2025-04-03 12:45:57,720 services Activité enregistrée: register - Utilisateur: admin3@gmail.com
+DEBUG 2025-04-03 12:46:46,863 services Activité enregistrée: register - Utilisateur: admin4@gmail.com
+DEBUG 2025-04-03 12:49:00,173 services Activité enregistrée: register - Utilisateur: admin5@gmail.com
+DEBUG 2025-04-03 12:53:22,914 services Activité enregistrée: register - Utilisateur: admin6@gmail.com
+DEBUG 2025-04-03 13:09:21,918 services Activité enregistrée: register - Utilisateur: jordanessono6@gmail.com
+ERROR 2025-04-03 13:09:21,919 services Failed to send verification email: authentication/email_verification.txt
+Traceback (most recent call last):
+  File "C:\Users\MONAO\Downloads\auth_microservice\authentication\services.py", line 45, in send_verification_email
+    message=render_to_string('authentication/email_verification.txt', context),
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: authentication/email_verification.txt
+DEBUG 2025-04-03 13:19:22,730 services Activité enregistrée: register - Utilisateur: jordanessono44@gmail.com
+ERROR 2025-04-03 13:19:22,730 services Failed to send verification email: authentication/email_verification.txt
+Traceback (most recent call last):
+  File "C:\Users\MONAO\Downloads\auth_microservice\authentication\services.py", line 45, in send_verification_email
+    message=render_to_string('authentication/email_verification.txt', context),
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: authentication/email_verification.txt
+DEBUG 2025-04-03 15:06:54,673 services Activité enregistrée: register - Utilisateur: goddyscott44@gmail.com
+ERROR 2025-04-03 15:06:54,677 services Failed to send verification email: Reverse for 'verify_email' with keyword arguments '{'uidb64': '', 'token': ''}' not found. 1 pattern(s) tried: ['api/verify\\-email/(?P<uidb64>[^/]+)/(?P<token>[^/]+)/\\Z']
+Traceback (most recent call last):
+  File "C:\Users\MONAO\Downloads\auth_microservice\authentication\services.py", line 47, in send_verification_email
+    html_message=render_to_string('authentication/email_verification.html', context),
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\defaulttags.py", line 325, in render
+    return nodelist.render(context)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\defaulttags.py", line 478, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\urls\resolvers.py", line 848, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'verify_email' with keyword arguments '{'uidb64': '', 'token': ''}' not found. 1 pattern(s) tried: ['api/verify\\-email/(?P<uidb64>[^/]+)/(?P<token>[^/]+)/\\Z']
+DEBUG 2025-04-03 15:19:36,214 services Activité enregistrée: register - Utilisateur: jordanessono45@gmail.com
+ERROR 2025-04-03 15:19:36,218 services Failed to send verification email: Reverse for 'verify_email' with keyword arguments '{'uidb64': '', 'token': ''}' not found. 1 pattern(s) tried: ['api/verify\\-email/(?P<uidb64>[^/]+)/(?P<token>[^/]+)/\\Z']
+Traceback (most recent call last):
+  File "C:\Users\MONAO\Downloads\auth_microservice\authentication\services.py", line 47, in send_verification_email
+    html_message=render_to_string('authentication/email_verification.html', context),
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\defaulttags.py", line 325, in render
+    return nodelist.render(context)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\template\defaulttags.py", line 478, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\MONAO\Downloads\auth_microservice\venv\lib\site-packages\django\urls\resolvers.py", line 848, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'verify_email' with keyword arguments '{'uidb64': '', 'token': ''}' not found. 1 pattern(s) tried: ['api/verify\\-email/(?P<uidb64>[^/]+)/(?P<token>[^/]+)/\\Z']
+DEBUG 2025-04-03 15:29:18,826 services Activité enregistrée: mfa_setup - Utilisateur: superuser@gmail.com
+INFO 2025-04-03 15:29:18,826 services Configuration MFA initiée pour superuser@gmail.com
